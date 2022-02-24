@@ -17,12 +17,12 @@ import java.util.List;
 public class avatar_read_write {
 
     public static WebDriver driver ;
-    private static String input_file = "/home/raghunathant/Avatar/Automation/resource/General-Q&A-Phase2-Sheet1.csv";
-    private static String write_file = "/home/raghunathant/Avatar/Automation/resource/v0.09-General-Q&A-Phase2-Sheet1-result.csv";
+    private static String input_file = "/home/raghunathant/Avatar/Automation/resource/v0.91-general-qa-phase2.csv";
+    private static String write_file = "/home/raghunathant/Avatar/Automation/resource/v0.91-general-qa-phase2-result.csv";
     private static int start_index =2;
-    private static int end_index = 254;
-    //private static  int ques_column = 21;
-    private static  int ques_column = 0;
+    private static int end_index = 350;
+    private static  int ques_column = 21;
+    //private static  int ques_column = 0;
     private static  int ticket_column = 3;
 
     private static BufferedWriter write_output ;
@@ -63,7 +63,7 @@ public class avatar_read_write {
                 if(line_count >= start_index & line_count < end_index) {
                     String[] read_line = line.split(",");
                     ques_list.add(read_line[ques_column]);
-                    //ticket_list.add(read_line[ticket_column]);
+                    ticket_list.add(read_line[ticket_column]);
                 }
 
                 if(line_count > end_index)
@@ -83,8 +83,8 @@ public class avatar_read_write {
     {
         try
         {
-            //write_output.write(ticket +"," + steps +","+ result);
-            write_output.write(steps +","+ result);
+            write_output.write(ticket +"," + steps +","+ result);
+            //write_output.write(steps +","+ result);
 
         }catch (Exception ex)
         {
@@ -124,7 +124,7 @@ public class avatar_read_write {
         try
         {
             WebElement webElement = driver.findElement(By.xpath(xpath));
-            webElement.sendKeys(input);
+            webElement.sendKeys(input.replace("\"",""));
             blnRes = true;
 
         }catch(Exception ex)
@@ -223,8 +223,8 @@ public class avatar_read_write {
                 String result = lastResponsefromAvatar();
 
                 //System.out.println(result);
-                //write_csv(ticket_list.get(index) , input_text, result);
-                write_csv("" , input_text, result);
+                write_csv(ticket_list.get(index) , input_text, result);
+                //write_csv("" , input_text, result);
             }
         }catch (Exception ex){
             //System.out.println(ex.getMessage());
